@@ -1,5 +1,6 @@
 const {
-  findActivityPhotoAll
+  findActivityPhotoAll,
+  findOneActivityPhoto
 } = require('../Model/activity');
 
 const getActivityPhotoAll = async (req, res) => {
@@ -12,36 +13,17 @@ const getActivityPhotoAll = async (req, res) => {
   }
 };
 
-module.exports = {
-  getActivityPhotoAll
+const getOneActivityPhoto = async (req, res) => {
+  try {
+    const data = await findOneActivityPhoto(req.params.id);
+    res.status(200).json(data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Internal server error');
+  }
 };
 
-// const {
-//   findAllPhoto,
-//   findPhoto
-// } = require('../Model/photo');
-
-// const getPhotoAll = async (req, res) => {
-//   try {
-//     const data = await findAllPhoto();
-//     res.status(200).json(data);
-//   } catch (error) {
-//     console.error(error.message);
-//     res.status(500).send('Internal server error');
-//   }
-// };
-
-// const getPhoto = async (req, res) => {
-//   try {
-//     const data = await findPhoto(req.params.id);
-//     res.status(200).json(data);
-//   } catch (error) {
-//     console.error(error.message);
-//     res.status(500).send('Internal server error');
-//   }
-// };
-
-// module.exports = {
-//   getPhotoAll,
-//   getPhoto
-// };
+module.exports = {
+  getActivityPhotoAll,
+  getOneActivityPhoto
+};
