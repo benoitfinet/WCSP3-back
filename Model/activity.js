@@ -1,11 +1,21 @@
 const mysql = require('../db');
 
-const findActivityPhotoAll = async () => {
-  const result = await mysql.query(
-    'SELECT * FROM activity AS ac JOIN activity_photo AS ap ON ap.activity_id = ac.id JOIN photo AS ph ON ap.photo_id = ph.id');
+const findActivityPhotoAll = async (sqlValues) => {
+  // const result = await mysql.query(
+  //   'SELECT * FROM activity AS ac JOIN activity_photo AS ap ON ap.activity_id = ac.id JOIN photo AS ph ON ap.photo_id = ph.id'
+  // );
+  // return result[0];
+
+  // let sql = 'SELECT * FROM activity AS ac JOIN activity_photo AS ap ON ap.activity_id = ac.id JOIN photo AS ph ON ap.photo_id = ph.id';
+  // const sqlValues = [];
+
+  // sqlValues.push()
+
+  const result = await mysql.query('SELECT * FROM activity AS ac JOIN activity_photo AS ap ON ap.activity_id = ac.id JOIN photo AS ph ON ap.photo_id = ph.id', sqlValues);
+  return result[0];
+
   // const result = await mysql.query('SELECT * FROM activity AS ac JOIN activity_photo AS ap ON ap.activity_id = 1 JOIN photo AS ph ON ap.photo_id = ph.id');
   // const result = await mysql.query('SELECT * FROM activity AS ac JOIN activity_photo AS ap ON ap.activity_id = ac.id ');
-  return result[0];
 };
 
 const findOneActivityPhoto = async (id) => {
