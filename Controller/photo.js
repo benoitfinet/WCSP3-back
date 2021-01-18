@@ -23,6 +23,7 @@ const getPhoto = async (req, res) => {
   }
 };
 
+
 module.exports = {
   getPhotoAll,
   getPhoto
