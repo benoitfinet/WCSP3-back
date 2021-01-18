@@ -1,4 +1,4 @@
-const { findAllSnack, findSnack, createPhoto } = require('../Model/snack');
+const { findAllSnack, findSnack, createSnack, deleteSnack, putSnack } = require('../Model/snack');
 
 const getSnackAll = async (req, res) => {
   try {
@@ -21,9 +21,27 @@ const getSnack = async (req, res) => {
 };
 const CreateOne = async (req, res) => {
   try {
-    const data = await createPhoto(req.body);
-    console.log(data);
+    const data = await createSnack(req.body);
     res.status(200).json(data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+const DeleteOne = async (req, res) => {
+  try {
+    const data = await deleteSnack(req.params.id);
+    res.status(200).json(data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
+const PutOne = async (req, res) => {
+  try {
+    await putSnack(req.body, req.params.id);
+    const result = await findSnack(req.params.id);
+    res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
   }
@@ -32,5 +50,7 @@ const CreateOne = async (req, res) => {
 module.exports = {
   getSnackAll,
   getSnack,
-  CreateOne
+  CreateOne,
+  DeleteOne,
+  PutOne
 };
