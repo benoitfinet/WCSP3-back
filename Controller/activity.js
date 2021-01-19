@@ -2,7 +2,6 @@ const {
   findActivityPhotoAll,
   findOneActivityPhotoByName,
   findOneActivityPhotoById,
-  findOneActivityById,
   createOneActivity
 } = require('../Model/activity');
 
@@ -36,16 +35,6 @@ const getOneActivityPhotoById = async (req, res) => {
   }
 };
 
-const getOneActivityById = async (req, res) => {
-  try {
-    const data = await findOneActivityById(req.params.id);
-    res.status(200).json(data);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Internal server error');
-  }
-};
-
 const postOneActivity = async (req, res) => {
   try {
     console.log('REq Body', req.body);
@@ -69,7 +58,7 @@ const postOneActivity = async (req, res) => {
     const data = await createOneActivity(activityBody, photoBody, activityPrice);
 
     console.log('DATA CONTROLEUR', data);
-    const newdata = await findOneActivityById(data.activityId);
+    const newdata = await findOneActivityPhotoById(data.activityId);
 
     console.log('newData CONTROLEUR', newdata);
 
@@ -84,6 +73,5 @@ module.exports = {
   getActivityPhotoAll,
   getOneActivityPhoto,
   getOneActivityPhotoById,
-  getOneActivityById,
   postOneActivity
 };
