@@ -1,7 +1,9 @@
 const {
   findActivityPhotoAll,
   findOneActivityPhotoByName,
-  findOneActivityPhotoById
+  findOneActivityPhotoById,
+  findOneActivityById,
+  createOneActivity
 } = require('../Model/activity');
 
 const getActivityPhotoAll = async (req, res) => {
@@ -34,8 +36,54 @@ const getOneActivityPhotoById = async (req, res) => {
   }
 };
 
+const getOneActivityById = async (req, res) => {
+  try {
+    const data = await findOneActivityById(req.params.id);
+    res.status(200).json(data);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Internal server error');
+  }
+};
+
+const postOneActivity = async (req, res) => {
+  try {
+    console.log('REq Body', req.body);
+    const activityBody = {
+      name: req.body.name,
+      description: req.body.description,
+      age: req.body.age
+    };
+    const photoBody = {
+      title: req.body.title,
+      location: req.body.location
+    };
+
+    const activityPrice = {
+      age_min: req.body.age_min,
+      age_max: req.body.age_max,
+      discount: req.body.discount
+    };
+
+    const data = await createOneActivity(activityBody, photoBody, activityPrice);
+
+    console.log('DATA CONTROLEUR', data);
+    const newdata = await findOneActivityById(data.activityId);
+
+    console.log('newData CONTROLEUR', newdata);
+
+    // newdata[0].photoId = data.activityId;
+    res.status(200).json(newdata[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Internal server error');
+  }
+};
+
 module.exports = {
   getActivityPhotoAll,
   getOneActivityPhoto,
-  getOneActivityPhotoById
+  getOneActivityPhotoById,
+  getOneActivityById,
+  postOneActivity
 };
