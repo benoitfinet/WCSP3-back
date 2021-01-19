@@ -4,5 +4,6 @@ const activityController = require('../Controller/activity');
 router.get('/', activityController.getActivityPhotoAll);
 router.get('/name/:name', activityController.getOneActivityPhoto);
 router.get('/id/:id', activityController.getOneActivityPhotoById);
+router.post('/', activityController.postOneActivity);
 
 module.exports = router;
