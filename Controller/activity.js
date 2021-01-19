@@ -62,7 +62,8 @@ const postOneActivity = async (req, res) => {
     const activityPrice = {
       age_min: req.body.age_min,
       age_max: req.body.age_max,
-      discount: req.body.discount
+      discount: req.body.discount,
+      price: req.body.price
     };
 
     const data = await createOneActivity(activityBody, photoBody, activityPrice);
@@ -72,7 +73,6 @@ const postOneActivity = async (req, res) => {
 
     console.log('newData CONTROLEUR', newdata);
 
-    // newdata[0].photoId = data.activityId;
     res.status(200).json(newdata[0]);
   } catch (err) {
     console.error(err.message);
