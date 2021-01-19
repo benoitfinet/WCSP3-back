@@ -1,8 +1,8 @@
-const { findAllSnack, findSnack, createSnack, deleteSnack, putSnack } = require('../Model/snack');
+const { findAllDrink, findDrink, createDrink, deleteDrink, putDrink } = require('../Model/drink');
 
-const getSnackAll = async (req, res) => {
+const getDrinkAll = async (req, res) => {
   try {
-    const data = await findAllSnack();
+    const data = await findAllDrink();
     res.status(200).json(data);
   } catch (error) {
     console.error(error.message);
@@ -10,9 +10,9 @@ const getSnackAll = async (req, res) => {
   }
 };
 
-const getSnack = async (req, res) => {
+const getDrink = async (req, res) => {
   try {
-    const data = await findSnack(req.params.id);
+    const data = await findDrink(req.params.id);
     res.status(200).json(data);
   } catch (error) {
     console.error(error.message);
@@ -21,7 +21,7 @@ const getSnack = async (req, res) => {
 };
 const CreateOne = async (req, res) => {
   try {
-    const data = await createSnack(req.body);
+    const data = await createDrink(req.body);
     res.status(200).json(data);
   } catch (err) {
     console.error(err.message);
@@ -30,7 +30,7 @@ const CreateOne = async (req, res) => {
 
 const DeleteOne = async (req, res) => {
   try {
-    const data = await deleteSnack(req.params.id);
+    const data = await deleteDrink(req.params.id);
     res.status(200).json(data);
   } catch (err) {
     console.error(err.message);
@@ -39,8 +39,8 @@ const DeleteOne = async (req, res) => {
 
 const PutOne = async (req, res) => {
   try {
-    await putSnack(req.body, req.params.id);
-    const result = await findSnack(req.params.id);
+    await putDrink(req.body, req.params.id);
+    const result = await findDrink(req.params.id);
     res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
@@ -48,8 +48,8 @@ const PutOne = async (req, res) => {
 };
 
 module.exports = {
-  getSnackAll,
-  getSnack,
+  getDrinkAll,
+  getDrink,
   CreateOne,
   DeleteOne,
   PutOne

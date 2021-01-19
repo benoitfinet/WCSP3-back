@@ -1,9 +1,9 @@
 const photos = require('./photo');
 const activitys = require('./activity');
-const snack = require('./snack');
+const drink = require('./drink');
 
 module.exports = (app) => {
   app.use('/photo', photos);
   app.use('/activity', activitys);
-  app.use('/snack', snack);
+  app.use('/drink', drink);
 };
