@@ -46,10 +46,14 @@ const modifyOneActivityPhotoById = async (id, bodyActivity, bodyPrice, bodyPhoto
   await mysql.query('UPDATE photo ph JOIN activity_photo ap ON ap.photo_id = ph.id SET ? WHERE ap.activity_id = ?', [body, id]);
 };
 
+const deleteOneActivityPhoto = async (idActivity) => {
+  await mysql.query('DELETE FROM activity WHERE id = ?', idActivity);
+};
 module.exports = {
   findActivityPhotoAll,
   findOneActivityPhotoByName,
   findOneActivityPhotoById,
   createOneActivityPhoto,
-  modifyOneActivityPhotoById
+  modifyOneActivityPhotoById,
+  deleteOneActivityPhoto
 };
