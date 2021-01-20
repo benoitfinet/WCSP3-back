@@ -17,15 +17,13 @@ const findOneActivityPhotoById = async (id) => {
   return result[0];
 };
 
-const createOneActivity = async (bodyActivity, bodyPhoto, bodyPrice) => {
+const createOneActivityPhoto = async (bodyActivity, bodyPhoto, bodyPrice) => {
   const resultActivity = await mysql.query('INSERT INTO activity SET ?', bodyActivity);
-  console.log('resultActivity MODEL', resultActivity);
-
-  const resultPhoto = await mysql.query('INSERT INTO photo SET ?', bodyPhoto);
-  console.log('resultPhoto MODEL', resultPhoto);
 
   bodyPrice.activity_id = resultActivity[0].insertId;
   await mysql.query('INSERT INTO price SET ?', bodyPrice);
+
+  const resultPhoto = await mysql.query('INSERT INTO photo SET ?', bodyPhoto);
 
   await mysql.query('INSERT INTO activity_photo SET ?', { activity_id: resultActivity[0].insertId, photo_id: resultPhoto[0].insertId });
   return {
@@ -35,9 +33,23 @@ const createOneActivity = async (bodyActivity, bodyPhoto, bodyPrice) => {
   };
 };
 
+const modifyOneActivityPhotoById = async (id, bodyActivity, bodyPrice, bodyPhoto) => {
+  await mysql.query('UPDATE activity SET ? WHERE id = ?', [bodyActivity, id]);
+
+  bodyPrice.activity_id = id;
+  await mysql.query('UPDATE price SET ? WHERE activity_id = ?', [bodyPrice, bodyPrice.activity_id]);
+
+  const body = {
+    'ph.title': bodyPhoto.title,
+    'ph.Location': bodyPhoto.location
+  };
+  await mysql.query('UPDATE photo ph JOIN activity_photo ap ON ap.photo_id = ph.id SET ? WHERE ap.activity_id = ?', [body, id]);
+};
+
 module.exports = {
   findActivityPhotoAll,
   findOneActivityPhotoByName,
   findOneActivityPhotoById,
-  createOneActivity
+  createOneActivityPhoto,
+  modifyOneActivityPhotoById
 };
