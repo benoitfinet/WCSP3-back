@@ -27,7 +27,9 @@ const createEvent = async (body) => {
 
 const createOneEventWithPhoto = async (eventBody, photoBody) => {
     const resultEvent = await mysql.query('SELECT * FROM event SET ?', eventBody);
+    console.log('event',eventBody);
     const resultPhoto = await mysql.query('SELECT * FROM photo SET ?', photoBody);
+    console.log('photo',photoBody);
     const result = await mysql.query('INSERT INTO event_photo SET ?', {event_id : eventBody.insertId[0], event_photo : photoBody.insertId[0]});
     return {
         eventId : eventBody.insertId[0],
@@ -39,6 +41,11 @@ const createOneEventWithPhoto = async (eventBody, photoBody) => {
 const SelectToDeleteOneEvent = async (id) => {
     const selectToDelete = await mysql.query('DELETE FROM event WHERE id =?', id);
     return selectToDelete[0]
+};
+
+const updateEvent = async (id) => {
+    const result = await mysqm.query('UPDATE event WHERE id = ?', id);
+    return result[0];
 };
 
 module.exports = {

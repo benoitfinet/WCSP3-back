@@ -70,7 +70,9 @@ const postOneEventWithPhoto = async (req, res) => {
             location : req.body.location
         };
         const data = await createOneEventWithPhoto(eventBody, photoBody);
-        const newData = await findOneEventById(data.eventID);
+        console.log('data', data);
+        const newData = await findOneEventById(data[0].req.params.id);
+        console.log('new data', newData);
         newData[0].photoID = data[0].eventID;
         res.status(200).json(newData);
     } catch (err) {
