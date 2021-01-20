@@ -1,4 +1,4 @@
-const { findAllDrink, findDrink, createDrink, deleteDrink, putDrink } = require('../Model/drink');
+const { findAllDrink, findDrink, createDrink, deleteDrink, putDrink, findDrinkByName } = require('../Model/drink');
 
 const getDrinkAll = async (req, res) => {
   try {
@@ -19,10 +19,22 @@ const getDrink = async (req, res) => {
     res.status(500).send('Internal server error');
   }
 };
+
+const getDrinkByName = async (req, res) => {
+  try {
+    const data = await findDrinkByName(req.params.name);
+    console.log(req.params.name);
+    res.status(200).json(data);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send('Internal server error');
+  }
+};
 const CreateOne = async (req, res) => {
   try {
     const data = await createDrink(req.body);
     res.status(200).json(data);
+    console.log(data);
   } catch (err) {
     console.error(err.message);
   }
@@ -52,5 +64,6 @@ module.exports = {
   getDrink,
   CreateOne,
   DeleteOne,
-  PutOne
+  PutOne,
+  getDrinkByName
 };

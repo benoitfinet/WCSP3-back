@@ -6,5 +6,6 @@ router.get('/:id', DrinkController.getDrink);
 router.post('/', DrinkController.CreateOne);
 router.delete('/:id', DrinkController.DeleteOne);
 router.put('/:id', DrinkController.PutOne);
+router.get('/name/:name', DrinkController.getDrinkByName);
 
 module.exports = router;

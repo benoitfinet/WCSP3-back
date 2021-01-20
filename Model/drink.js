@@ -10,6 +10,12 @@ const findDrink = async (id) => {
   return result[0];
 };
 
+const findDrinkByName = async (name) => {
+  console.log(name);
+  const result = await mysql.query('SELECT * FROM drink WHERE name = ?', name);
+  return result[0];
+};
+
 const createDrink = async (body) => {
   const result = await mysql.query('INSERT INTO drink SET ?', body);
   return findDrink(result[0].insertId);
@@ -30,5 +36,6 @@ module.exports = {
   findDrink,
   createDrink,
   deleteDrink,
-  putDrink
+  putDrink,
+  findDrinkByName
 };
