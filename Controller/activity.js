@@ -2,7 +2,8 @@ const {
   findActivityPhotoAll,
   findOneActivityPhotoByName,
   findOneActivityPhotoById,
-  createOneActivity
+  createOneActivityPhoto,
+  modifyOneActivityPhotoById
 } = require('../Model/activity');
 
 const getActivityPhotoAll = async (req, res) => {
@@ -37,7 +38,6 @@ const getOneActivityPhotoById = async (req, res) => {
 
 const postOneActivity = async (req, res) => {
   try {
-    console.log('REq Body', req.body);
     const activityBody = {
       name: req.body.name,
       description: req.body.description,
@@ -55,12 +55,8 @@ const postOneActivity = async (req, res) => {
       price: req.body.price
     };
 
-    const data = await createOneActivity(activityBody, photoBody, activityPrice);
-
-    console.log('DATA CONTROLEUR', data);
+    const data = await createOneActivityPhoto(activityBody, photoBody, activityPrice);
     const newdata = await findOneActivityPhotoById(data.activityId);
-
-    console.log('newData CONTROLEUR', newdata);
 
     res.status(200).json(newdata[0]);
   } catch (err) {
@@ -69,9 +65,42 @@ const postOneActivity = async (req, res) => {
   }
 };
 
+const putOneActivityPhotoById = async (req, res) => {
+  try {
+    const activityBody = {
+      name: req.body.name,
+      description: req.body.description,
+      age: req.body.age
+    };
+    const photoBody = {
+      title: req.body.title,
+      location: req.body.location
+    };
+
+    const priceBody = {
+      age_min: req.body.age_min,
+      age_max: req.body.age_max,
+      discount: req.body.discount,
+      price: req.body.price
+    };
+
+    const id = req.params.id;
+    console.log('BODY', req.body);
+    console.log('params Id', id);
+
+    await modifyOneActivityPhotoById(id, activityBody, priceBody, photoBody);
+    const newData = await findOneActivityPhotoById(id);
+    res.status(200).json(newData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error updating a user');
+  }
+};
+
 module.exports = {
   getActivityPhotoAll,
   getOneActivityPhoto,
   getOneActivityPhotoById,
-  postOneActivity
+  postOneActivity,
+  putOneActivityPhotoById
 };
