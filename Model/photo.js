@@ -15,8 +15,14 @@ const postPhoto = async (body) => {
   return findPhoto(result[0].insertId);
 }
 
+const deletePhoto = async (id) => {
+  const result = await mysql.query('DELETE FROM photo WHERE id = ?', id);
+  return result[0]
+}
+
 module.exports = {
   findAllPhoto,
   findPhoto,
-  postPhoto
+  postPhoto,
+  deletePhoto
 };

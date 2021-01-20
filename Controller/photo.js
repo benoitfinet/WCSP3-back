@@ -1,7 +1,8 @@
 const {
   findAllPhoto,
   findPhoto,
-  postPhoto
+  postPhoto,
+  deletePhoto
 } = require('../Model/photo');
 
 const getPhotoAll = async (req, res) => {
@@ -34,8 +35,19 @@ const getPostedPhoto = async (req, res) => {
   }
 };
 
+const handleDelete = async () => {
+  try {
+    const data = await deletePhoto();
+    res.status(204)
+  } catch (err) {
+    console.error(res.message);
+    res.status(404).send('Photo has been deleted');
+  }
+};
+
 module.exports = {
   getPhotoAll,
   getPhoto,
-  getPostedPhoto
+  getPostedPhoto,
+  handleDelete
 };
