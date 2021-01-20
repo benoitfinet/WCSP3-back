@@ -3,7 +3,8 @@ const {
   findOneActivityPhotoByName,
   findOneActivityPhotoById,
   createOneActivityPhoto,
-  modifyOneActivityPhotoById
+  modifyOneActivityPhotoById,
+  deleteOneActivityPhoto
 } = require('../Model/activity');
 
 const getActivityPhotoAll = async (req, res) => {
@@ -29,7 +30,12 @@ const getOneActivityPhoto = async (req, res) => {
 const getOneActivityPhotoById = async (req, res) => {
   try {
     const data = await findOneActivityPhotoById(req.params.id);
-    res.status(200).json(data);
+    console.log(data.length);
+    if (data.length > 0) {
+      return res.status(200).json(data);
+    }
+    console.log('OK');
+    res.status(404).json('The activity does not exist');
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Internal server error');
@@ -97,10 +103,22 @@ const putOneActivityPhotoById = async (req, res) => {
   }
 };
 
+const deletedOneActivityPhoto = async (req, res) => {
+  try {
+    const idActivity = req.params.id;
+    await deleteOneActivityPhoto(idActivity);
+    res.status(200).send('Activity deleted!');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error deleted an activity');
+  }
+};
+
 module.exports = {
   getActivityPhotoAll,
   getOneActivityPhoto,
   getOneActivityPhotoById,
   postOneActivity,
-  putOneActivityPhotoById
+  putOneActivityPhotoById,
+  deletedOneActivityPhoto
 };
