@@ -6,5 +6,6 @@ router.get('/name/:name', activityController.getOneActivityPhoto);
 router.get('/id/:id', activityController.getOneActivityPhotoById);
 router.post('/', activityController.postOneActivity);
 router.put('/id/:id', activityController.putOneActivityPhotoById);
+router.delete('/id/:id', activityController.deletedOneActivityPhoto);
 
 module.exports = router;
