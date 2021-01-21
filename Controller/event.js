@@ -3,7 +3,8 @@ const {
   findAllEventPhoto,
   findOneEventPhotoByName,
   createOneEventWithPhoto,
-  SelectToDeleteOneEvent
+  SelectToDeleteOneEvent,
+  modifyOneActivityPhoto
 } = require('../Model/event');
 
 const getOnePhotoEventById = async (req, res) => {
@@ -68,10 +69,35 @@ const postOneEventWithPhoto = async (req, res) => {
 const deleteOneEvent = async (req, res) => {
   try {
     await SelectToDeleteOneEvent(req.params.id);
-    res.status(204).send('Event has been deleted');
+    res.status(200).send('Event has been deleted');
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Internal Server Error');
+  }
+};
+
+const putOneActivityPhoto = async (req, res) => {
+  try {
+    const eventBody = {
+      name: req.body.name,
+      description: req.body.description,
+      price: req.body.price,
+      age: req.body.age
+    };
+
+    const photoBody = {
+      title: req.body.title,
+      location: req.body.location
+    };
+
+    const id = req.params.id;
+
+    await modifyOneActivityPhoto(id, eventBody, photoBody);
+    const newData = await findOnePhotoEventById(id);
+    res.status(200).json(newData);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error updating a user');
   }
 };
 
@@ -80,5 +106,6 @@ module.exports = {
   getAllEventPhoto,
   getOneEventPhotoByName,
   postOneEventWithPhoto,
-  deleteOneEvent
+  deleteOneEvent,
+  putOneActivityPhoto
 };
