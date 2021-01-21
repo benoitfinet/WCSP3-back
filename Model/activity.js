@@ -8,7 +8,6 @@ const findActivityPhotoAll = async () => {
 const findOneActivityPhotoByName = async (name) => {
   const result = await mysql.query(
     'SELECT * FROM activity ac JOIN price p ON p.activity_id = ac.id JOIN activity_photo ap ON ap.activity_id = ac.id JOIN photo ph ON ap.photo_id = ph.id JOIN price prc ON prc.activity_id = ac.id WHERE ac.name= ?', name);
-  console.log(result[0]);
   return result[0];
 };
 const findOneActivityPhotoById = async (id) => {
