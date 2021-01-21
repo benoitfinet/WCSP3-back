@@ -30,11 +30,9 @@ const getOneActivityPhoto = async (req, res) => {
 const getOneActivityPhotoById = async (req, res) => {
   try {
     const data = await findOneActivityPhotoById(req.params.id);
-    console.log(data.length);
     if (data.length > 0) {
       return res.status(200).json(data);
     }
-    console.log('OK');
     res.status(404).json('The activity does not exist');
   } catch (err) {
     console.error(err.message);
@@ -91,8 +89,6 @@ const putOneActivityPhotoById = async (req, res) => {
     };
 
     const id = req.params.id;
-    console.log('BODY', req.body);
-    console.log('params Id', id);
 
     await modifyOneActivityPhotoById(id, activityBody, priceBody, photoBody);
     const newData = await findOneActivityPhotoById(id);
