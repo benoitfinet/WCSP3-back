@@ -27,9 +27,19 @@ const createOneEventWithPhoto = async (eventBody, photoBody) => {
   };
 };
 
+const modifyOneActivityPhoto = async (id, eventBody, photoBody) => {
+  await mysql.query('UPDATE event SET ? WHERE id = ?', [eventBody, id]);
+
+  const body = {
+    'ph.title': photoBody.title,
+    'ph.location': photoBody.location
+  };
+
+  await mysql.query('UPDATE photo ph JOIN event_photo ep ON ep.photo_id = ph.id SET ?  WHERE ep.event_id = ?', [body, id]);
+};
+
 const SelectToDeleteOneEvent = async (id) => {
-  const selectToDelete = await mysql.query('DELETE FROM event WHERE id =?', id);
-  return selectToDelete[0];
+  await mysql.query('DELETE FROM event WHERE id =?', id);
 };
 
 module.exports = {
@@ -37,5 +47,6 @@ module.exports = {
   findAllEventPhoto,
   findOneEventPhotoByName,
   createOneEventWithPhoto,
-  SelectToDeleteOneEvent
+  SelectToDeleteOneEvent,
+  modifyOneActivityPhoto
 };
