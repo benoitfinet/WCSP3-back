@@ -55,9 +55,8 @@ const postOneEventWithPhoto = async (req, res) => {
       location: req.body.location
     };
     const data = await createOneEventWithPhoto(eventBody, photoBody);
-    console.log('CONTROLLER data: ', data);
+
     const newData = await findOnePhotoEventById(data.event_id);
-    console.log('CONTROLLER new data: ', newData);
 
     res.status(200).json(newData[0]);
   } catch (err) {
