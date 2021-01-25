@@ -10,7 +10,14 @@ const findPhoto = async (id) => {
   return result[0];
 };
 
+const createOnePhoto = async (body) => {
+  const result = await mysql.query('INSERT INTO photo SET ?', body);
+  await mysql.query('INSERT INTO activity_photo SET photo_id=?', result[0].insertId);
+  return findPhoto(result[0].insertId);
+};
+
 module.exports = {
   findAllPhoto,
-  findPhoto
+  findPhoto,
+  createOnePhoto
 };

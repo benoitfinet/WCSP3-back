@@ -1,6 +1,7 @@
 const {
   findAllPhoto,
-  findPhoto
+  findPhoto,
+  createOnePhoto
 } = require('../Model/photo');
 
 const getPhotoAll = async (req, res) => {
@@ -23,7 +24,17 @@ const getPhoto = async (req, res) => {
   }
 };
 
+const postOnePhoto = async (req, res) => {
+  try {
+    const data = await createOnePhoto(req.body);
+    res.status(200).json(data);
+  } catch (err) {
+    console.error(err.message);
+  }
+};
+
 module.exports = {
   getPhotoAll,
-  getPhoto
+  getPhoto,
+  postOnePhoto
 };
