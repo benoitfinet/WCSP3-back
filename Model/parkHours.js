@@ -12,7 +12,6 @@ const findHour = async (id) => {
 
 const createHour = async (body) => {
   const result = await mysql.query('INSERT INTO parc_hours SET ?', body);
-  console.log(result);
   return findHour(result[0].insertId);
 };
 const deleteHour = async (id) => {

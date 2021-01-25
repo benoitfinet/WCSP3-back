@@ -23,7 +23,6 @@ const getfood = async (req, res) => {
 const getfoodByName = async (req, res) => {
   try {
     const data = await findfoodByName(req.params.name);
-    console.log(data);
     res.status(200).json(data);
   } catch (error) {
     console.error(error.message);
@@ -34,7 +33,6 @@ const CreateOneFood = async (req, res) => {
   try {
     const data = await createfood(req.body);
     res.status(200).json(data);
-    console.log(data);
   } catch (err) {
     console.error(err.message);
   }

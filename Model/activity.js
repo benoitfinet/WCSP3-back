@@ -17,12 +17,6 @@ const findOneActivityPhotoById = async (id) => {
   return result[0];
 };
 
-// const createOneActivity = async () = {
-//   const result = await mysql.query(
-//     'INSERT INTO activity SET '
-//   );
-// }
-
 module.exports = {
   findActivityPhotoAll,
   findOneActivityPhotoByName,

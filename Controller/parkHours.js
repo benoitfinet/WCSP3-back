@@ -22,7 +22,6 @@ const getHour = async (req, res) => {
 const CreateOneHour = async (req, res) => {
   try {
     const data = await createHour(req.body);
-    console.log(data);
     res.status(200).json(data);
   } catch (err) {
     console.error(err.message);

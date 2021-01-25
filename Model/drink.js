@@ -11,7 +11,6 @@ const findDrink = async (id) => {
 };
 
 const findDrinkByName = async (name) => {
-  console.log(name);
   const result = await mysql.query('SELECT * FROM drink WHERE name = ?', name);
   return result[0];
 };
