@@ -14,6 +14,7 @@ const findOneActivityPhotoById = async (id) => {
   const result = await mysql.query(
     'SELECT * FROM activity ac JOIN price p ON p.activity_id = ac.id JOIN activity_photo ap ON ap.activity_id = ac.id JOIN photo ph ON ap.photo_id = ph.id JOIN price prc ON prc.activity_id = ac.id WHERE ac.id=?', id);
   return result[0];
+};
 
 const createOneActivityPhoto = async (bodyActivity, bodyPhoto, bodyPrice) => {
   const resultActivity = await mysql.query('INSERT INTO activity SET ?', bodyActivity);
