@@ -7,6 +7,16 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  exposedHeaders: ['Content-Range', 'X-Content-Range', 'X-Total-Count'],
+  origin: 'http://localhost:3001'
+}));
+app.use((req, res, next) => {
+  const totalCount = req.headers['x-total-count'];
+  console.log('totalCount :', totalCount);
+  res.set('X-Total-Count', totalCount);
+  next();
+});
 
 require('./routes')(app);
 
