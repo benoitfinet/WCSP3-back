@@ -15,6 +15,7 @@ const getInfoAll = async (req, res) => {
     res.status(200).json(data);
   } catch (err) {
     console.error(err.message);
+    res.status(500).send('Interval server error');
   }
 };
 
@@ -47,7 +48,6 @@ const postOneInfo = async (req, res) => {
     const newData = await findOneInfoById(data.id);
     res.status(200).json(newData);
   } catch (err) {
-    console.error(err.message);
     res.status(500).send('Internal server error');
   }
 };
