@@ -26,7 +26,8 @@ const modifyOneInfo = async (body, id) => {
 };
 
 const deleteOneInfo = async (id) => {
-  await mysql.query('DELETE FROM info WHERE id = ?', id);
+  const result = await mysql.query('DELETE FROM info WHERE id = ?', id);
+  return result[0];
 };
 
 module.exports = {
