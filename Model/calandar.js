@@ -21,11 +21,13 @@ const createOneCalandar = async (body) => {
 };
 
 const modifyOneCalandar = async (id, body) => {
-  await mysql.query('UPDATE calandar SET ? WHERE id = ?', [body, id]);
+  const result = await mysql.query('UPDATE calandar SET ? WHERE id = ?', [body, id]);
+  return result[0];
 };
 
 const deleteOneCalandar = async (id) => {
-  await mysql.query('DELETE FROM calandar WHERE id = ?', id);
+  const result = await mysql.query('DELETE FROM calandar WHERE id = ?', id);
+  return result[0];
 };
 
 module.exports = {
