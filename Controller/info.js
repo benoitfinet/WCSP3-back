@@ -48,6 +48,7 @@ const postOneInfo = async (req, res) => {
     const newData = await findOneInfoById(data.id);
     res.status(200).json(newData);
   } catch (err) {
+    console.error(err.message);
     res.status(500).send('Internal server error');
   }
 };
