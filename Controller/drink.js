@@ -13,7 +13,7 @@ const getDrinkAll = async (req, res) => {
 const getDrink = async (req, res) => {
   try {
     const data = await findDrink(req.params.id);
-    res.status(200).json(data);
+    res.status(200).json(data[0]);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Internal server error');

@@ -17,7 +17,7 @@ const getPhotoAll = async (req, res) => {
 const getPhoto = async (req, res) => {
   try {
     const data = await findPhoto(req.params.id);
-    res.status(200).json(data);
+    res.status(200).json(data[0]);
   } catch (error) {
     console.error(error.message);
     res.status(500).send('Internal server error');
