@@ -16,7 +16,7 @@ const getOnePhotoEventById = async (req, res) => {
     res.status(404).send('Error event not found');
   } catch (error) {
     console.error(error.message);
-    res.status(404).send('Error photo not found');
+    res.status(500).send('Error photo not found');
   }
 };
 
@@ -29,7 +29,7 @@ const getOneEventPhotoByName = async (req, res) => {
     res.status(404).send('Name not found');
   } catch (error) {
     console.error(error.message);
-    res.status(404).send('Error photo not found');
+    res.status(500).send('Error photo not found');
   }
 };
 
@@ -39,7 +39,7 @@ const getAllEventPhoto = async (req, res) => {
     res.status(200).json(data);
   } catch (err) {
     console.error(err.message);
-    res.status(404).send('Error photo not found');
+    res.status(500).send('Error photo not found');
   }
 };
 
