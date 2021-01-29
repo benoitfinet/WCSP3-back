@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   exposedHeaders: ['Content-Range', 'X-Content-Range', 'X-Total-Count'],
-  origin: 'http://localhost:3001'
+  origin: 'http://localhost:3000'
 }));
 app.use((req, res, next) => {
   const totalCount = req.headers['x-total-count'];
