@@ -5,6 +5,8 @@ const groupes = require('./groupes');
 const findus = require('./findus');
 const horaires = require('./horaires');
 const tarifs = require('./tarifs');
+const parcs = require('./parc');
+const photos = require('./photo');
 module.exports = (app) => {
   app.use('/activity', activitys);
   app.use('/info', infos);
@@ -13,4 +15,6 @@ module.exports = (app) => {
   app.use('/findus', findus);
   app.use('/horaires', horaires);
   app.use('/tarifs', tarifs);
+  app.use('/parc', parcs);
+  app.use('/photo', photos);
 };
