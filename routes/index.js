@@ -7,6 +7,8 @@ const horaires = require('./horaires');
 const tarifs = require('./tarifs');
 const parcs = require('./parc');
 const photos = require('./photo');
+const admin = require('./admin');
+
 module.exports = (app) => {
   app.use('/activity', activitys);
   app.use('/info', infos);
@@ -17,4 +19,5 @@ module.exports = (app) => {
   app.use('/tarifs', tarifs);
   app.use('/parc', parcs);
   app.use('/photo', photos);
+  app.use('/admin', admin);
 };
