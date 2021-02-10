@@ -101,46 +101,31 @@ app.post('/Reservation', (req, res) => {
   let reservationOptions={
     from: data.email,
     to: MAIL,
-    subject: `Reservation de `,
+    subject: `Reservation de ${data.nomClient} ${data.prenomClient} `,
     html:`
     
     <h3>Reservation</3>
-    
-    <h3>Parcours acrobatiques en hauteur</h3>
 
-        <ul>
-        <li> Parcours Pitchoun: ${data.totalPricePitchoun} euros</li>
-        <li> Parcours Ouistiti: ${data.totalPriceOuistiti} euros</li>
-        <li> Parcours Enfant: ${data.totalPriceChildren} euros </li>
-        <li> Parcours Junior: ${data.totalPriceJunior} euros </li>
-        <li> Tarifs Adult: ${data.totalPriceAdult} euros </li>
-        <li> Tarifs Nocturne: ${data.totalPriceNocturne} euros </li>
-        </ul>
-        
-        <h3>Escape Game</h3>
-        <ul>
-        <li> Escape Game: ${data.totalPriceEscape} euros </li>
-        </ul>
-        
-        <h3>Parcours d'enigmes</h3>
-        <ul>
-        <li> Parcours d'enigmes: ${data.totalPriceEnigme} euros </li>
-        </ul>
-        
-        <h3>Chasse au trésor</h3>
-        <ul>
-        <li> Chasse au trésor: ${data.totalPriceTresor} euros </li>
-        </ul>
-        <h3>Laser Game</h3>
-        <ul>
-        <li> Laser Game: ${data.totalPriceLaserGame} euros </li>
-        </ul>
-        
-        
-        <p>Nbr de Personnes ${data.selectionNumberPitchoun}</p>
+    <h3>Information client</h3>
+    <ul>
+    <li>Nom: ${data.nomClient}</li>
+    <li>Prénom: ${data.prenomClient}</li>
+    <li>Tel: ${data.telClient}</li>
+    <li>Email: ${data.emailClient}</li>
+    </ul>
+
+    <h3> Récapitulatif:<h3>
+
+    <div>${data.basket.map(activity => {
+      return (
+        `<p> activité : ${activity.activity}, nbr de personne : ${activity.numberSelectedActivity}, prix/unitaire : ${activity.unitPrice}</p>
+        `
+      )
+    })} </div>
+ 
     `
 };
-
+console.log(data);
 smtpTransport.sendMail(reservationOptions, (error, res) => {
   if(error){
       res.send(error)
