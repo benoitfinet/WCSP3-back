@@ -21,6 +21,7 @@ const getInfo = async (req, res) => {
     res.status(200).json(data[0]);
   } catch (error) {
     console.error(error.message);
+
     res.status(500).send('Internal server error');
   }
 };
@@ -41,6 +42,7 @@ const PutOneinfo = async (req, res) => {
     res.status(200).json(result);
   } catch (err) {
     console.error(err.message);
+
   }
 };
 

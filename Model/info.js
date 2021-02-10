@@ -16,6 +16,7 @@ const createOneInfo = async (body) => {
 };
 
 const putInfo = async (body, id) => {
+
   const result = await mysql.query('UPDATE info SET ? WHERE id = ?', [body, id]);
   return result[0];
 };

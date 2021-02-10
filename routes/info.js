@@ -1,4 +1,5 @@
 const router = require('express').Router();
+
 const infoController = require('../Controller/info');
 
 router.get('/', infoController.getInfoAll);
