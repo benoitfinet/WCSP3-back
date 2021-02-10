@@ -9,6 +9,7 @@ const parcs = require('./parc');
 const photos = require('./photo');
 const admin = require('./admin');
 const event = require('./event');
+const petitCarousel = require('./petitCarousel');
 
 module.exports = (app) => {
   app.use('/activity', activitys);
@@ -22,4 +23,5 @@ module.exports = (app) => {
   app.use('/photo', photos);
   app.use('/admin', admin);
   app.use('/event', event);
+  app.use('/petitCarousel', petitCarousel);
 };
