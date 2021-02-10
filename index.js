@@ -3,7 +3,7 @@ const cors = require('cors');
 const { SERVER_PORT } = require('./env');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-const { MAIL }= require('./env');
+const { MAIL } = require('./env');
 const { MAILPASS } = require('./env');
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors({
   exposedHeaders: ['Content-Range', 'X-Content-Range', 'X-Total-Count'],
@@ -49,21 +49,21 @@ process.on('beforeExit', () => {
 });
 
 app.post('/Contact', (req, res) => {
-  let data = req.body
-  let smtpTransport = nodemailer.createTransport({
-      service : 'Gmail',
-      port: 465,
-      auth:{
-          user: MAIL,
-          pass: MAILPASS
-      } 
+  const data = req.body;
+  const smtpTransport = nodemailer.createTransport({
+    service: 'Gmail',
+    port: 465,
+    auth: {
+      user: MAIL,
+      pass: MAILPASS
+    }
   });
 
-  let mailOptions={
-      from: data.email,
-      to: MAIL,
-      subject: `Message de ${data.name} ${data.lastname}`,
-      html:`
+  const mailOptions = {
+    from: data.email,
+    to: MAIL,
+    subject: `Message de ${data.name} ${data.lastname}`,
+    html: `
       
       <h3>Informations</3>
           <ul>
@@ -78,31 +78,31 @@ app.post('/Contact', (req, res) => {
   };
 
   smtpTransport.sendMail(mailOptions, (error, response) => {
-      if(error){
-          res.send(error)
-      } else {
-          res.send('Succes')
-      }
-  })
+    if (error) {
+      res.send(error);
+    } else {
+      res.send('Succes');
+    }
+  });
   smtpTransport.close();
-})
+});
 
 app.post('/Reservation', (req, res) => {
-  let data = req.body
-  let smtpTransport = nodemailer.createTransport({
-      service : 'Gmail',
-      port: 465,
-      auth:{
-          user: MAIL,
-          pass: MAILPASS
-      } 
+  const data = req.body;
+  const smtpTransport = nodemailer.createTransport({
+    service: 'Gmail',
+    port: 465,
+    auth: {
+      user: MAIL,
+      pass: MAILPASS
+    }
   });
 
-  let reservationOptions={
+  const reservationOptions = {
     from: data.email,
     to: MAIL,
     subject: `Reservation de ${data.nomClient} ${data.prenomClient} `,
-    html:`
+    html: `
     
     <h3>Reservation</3>
 
@@ -120,20 +120,20 @@ app.post('/Reservation', (req, res) => {
       return (
         `<p> activité : ${activity.activity}, nbr de personne : ${activity.numberSelectedActivity}, prix/unitaire : ${activity.unitPrice}</p>
         `
-      )
+      );
     })} </div>
  
     `
-};
-console.log(data);
-smtpTransport.sendMail(reservationOptions, (error, res) => {
-  if(error){
-      res.send(error)
-  } else {
-      res.send('Succes')
-  }
-})
-smtpTransport.close();
-})
+  };
+  console.log(data);
+  smtpTransport.sendMail(reservationOptions, (error, res) => {
+    if (error) {
+      res.send(error);
+    } else {
+      res.send('Succes');
+    }
+  });
+  smtpTransport.close();
+});
 
 module.exports = server;

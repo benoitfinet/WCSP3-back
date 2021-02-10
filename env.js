@@ -12,7 +12,7 @@ const DB_USER = getEnv('DB_USER');
 const DB_PASS = getEnv('DB_PASS');
 const DB_NAME = getEnv('DB_NAME');
 const MAIL = getEnv('MAIL');
-const MAILPASS = getEnv('MAILPASS')
+const MAILPASS = getEnv('MAILPASS');
 
 module.exports = {
   SERVER_PORT,
